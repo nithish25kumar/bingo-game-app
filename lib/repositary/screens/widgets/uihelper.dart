@@ -9,8 +9,8 @@ class Uihelper {
   }) {
     return Image.asset(
       "assets/images/$imgurl",
-      height: 500,
-      width: width,
+      height: 200,
+      width: 200,
       fit: BoxFit.contain,
     );
   }
