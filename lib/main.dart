@@ -1,3 +1,4 @@
+import 'package:bingo/repositary/screens/gameSettings/gameSettings.dart';
 import 'package:bingo/repositary/screens/splashpage/splashscreen.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Splashscreen(),
+      home: Gamesettings(),
     );
   }
 }
