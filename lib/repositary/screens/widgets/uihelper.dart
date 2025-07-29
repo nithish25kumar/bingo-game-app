@@ -9,6 +9,19 @@ class Uihelper {
   }) {
     return Image.asset(
       "assets/images/$imgurl",
+      height: 500,
+      width: width,
+      fit: BoxFit.contain,
+    );
+  }
+
+  static Widget CustomImage2({
+    required String imgurl,
+    double? height,
+    double? width,
+  }) {
+    return Image.asset(
+      "assets/images/$imgurl",
       height: 200,
       width: 200,
       fit: BoxFit.contain,

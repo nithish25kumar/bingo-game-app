@@ -1,3 +1,4 @@
+import 'package:bingo/repositary/screens/multiplayer/multiplayer.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/uihelper.dart';
@@ -19,7 +20,8 @@ class _RoomState extends State<Room> {
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context); // Go back
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (_) => Multiplayer()));
           },
           icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
         ),
@@ -28,7 +30,7 @@ class _RoomState extends State<Room> {
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start, // Align left
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "Room",

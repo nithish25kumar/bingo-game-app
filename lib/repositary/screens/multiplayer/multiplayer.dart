@@ -74,9 +74,8 @@ class _MultiplayerState extends State<Multiplayer> {
                         "Online Multiplayer",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: 25,
                           fontWeight: FontWeight.bold,
-                          letterSpacing: 4,
                         ),
                       ),
                       SizedBox(height: 40),
