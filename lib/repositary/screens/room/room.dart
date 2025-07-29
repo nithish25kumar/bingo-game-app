@@ -69,7 +69,104 @@ class _RoomState extends State<Room> {
                   ),
                 ],
               ),
-              SizedBox(height: 490),
+              SizedBox(
+                height: 40,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 0),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 70,
+                      width: 70,
+                      decoration: BoxDecoration(
+                          color: Colors.redAccent,
+                          borderRadius: BorderRadius.circular(20)),
+                    ),
+                    Container(
+                      height: 80,
+                      width: 250,
+                      decoration: BoxDecoration(
+                          color: Color(0xff60669b),
+                          borderRadius: BorderRadius.circular(25)),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(19),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Player 1 ",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                                SizedBox(
+                                  width: 110,
+                                ),
+                                Text(
+                                  "Level ",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 14),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Container(
+                    height: 70,
+                    width: 70,
+                    decoration: BoxDecoration(
+                        color: Colors.yellow,
+                        borderRadius: BorderRadius.circular(20)),
+                  ),
+                  Container(
+                    height: 80,
+                    width: 250,
+                    decoration: BoxDecoration(
+                        color: Color(0xff60669b),
+                        borderRadius: BorderRadius.circular(25)),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(19),
+                          child: Row(
+                            children: [
+                              Text(
+                                "Player 2 ",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
+                              ),
+                              SizedBox(
+                                width: 110,
+                              ),
+                              Text(
+                                "Level ",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 14),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 280),
               Uihelper.CustomButton1(
                 buttonnname: "Get.Set.Play",
                 callback: () {},

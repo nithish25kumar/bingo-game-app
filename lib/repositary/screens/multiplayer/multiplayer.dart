@@ -1,3 +1,4 @@
+import 'package:bingo/repositary/screens/room/room.dart';
 import 'package:flutter/material.dart';
 
 import '../selectmode/selectmode.dart';
@@ -81,7 +82,10 @@ class _MultiplayerState extends State<Multiplayer> {
                       SizedBox(height: 40),
                       Uihelper.createbtn(
                         buttonnname: "Create",
-                        callback: () {},
+                        callback: () {
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (_) => Room()));
+                        },
                       ),
                       SizedBox(height: 10),
                       Text(
