@@ -1,3 +1,4 @@
+import 'package:bingo/repositary/screens/gameSettings/customizeBoard.dart';
 import 'package:flutter/material.dart';
 
 class Gamesettings extends StatefulWidget {
@@ -15,7 +16,10 @@ class _GamesettingsState extends State<Gamesettings> {
       appBar: AppBar(
         backgroundColor: Color(0xFF171717),
         leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (_) => Customizeboard()));
+            },
             icon: Icon(
               Icons.arrow_back_ios_new,
               color: Colors.white,

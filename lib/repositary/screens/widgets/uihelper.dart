@@ -28,6 +28,19 @@ class Uihelper {
     );
   }
 
+  static Widget bingo({
+    required String imgurl,
+    double? height,
+    double? width,
+  }) {
+    return Image.asset(
+      "assets/images/$imgurl",
+      height: 300,
+      width: 500,
+      fit: BoxFit.contain,
+    );
+  }
+
   static Widget CustomImage1({
     required String imgurl,
     double? height,
@@ -190,7 +203,7 @@ class Uihelper {
   }) {
     return Container(
       height: 50,
-      width: 320,
+      width: 280,
       decoration: BoxDecoration(
         color: Theme.of(context).brightness == Brightness.dark
             ? AppColors.textFieldDark
@@ -217,7 +230,7 @@ class Uihelper {
             color: Theme.of(context).brightness == Brightness.dark
                 ? AppColors.hintDark
                 : AppColors.hintLight,
-            fontSize: 14,
+            fontSize: 18,
           ),
           border: InputBorder.none,
         ),

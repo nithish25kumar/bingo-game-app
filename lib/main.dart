@@ -1,4 +1,5 @@
 import 'package:bingo/repositary/screens/gameSettings/customizeBoard.dart';
+import 'package:bingo/repositary/screens/joinroom/joinroom.dart';
 import 'package:bingo/repositary/screens/room/room.dart';
 import 'package:bingo/repositary/screens/splashpage/splashscreen.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Customizeboard(),
+      home: Joinroom(),
     );
   }
 }

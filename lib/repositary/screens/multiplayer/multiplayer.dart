@@ -1,3 +1,6 @@
+import 'package:bingo/repositary/screens/gameSettings/customizeBoard.dart';
+import 'package:bingo/repositary/screens/gameSettings/gameSettings.dart';
+import 'package:bingo/repositary/screens/joinroom/joinroom.dart';
 import 'package:bingo/repositary/screens/room/room.dart';
 import 'package:flutter/material.dart';
 
@@ -82,8 +85,10 @@ class _MultiplayerState extends State<Multiplayer> {
                       Uihelper.createbtn(
                         buttonnname: "Create",
                         callback: () {
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (_) => Room()));
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => Customizeboard()));
                         },
                       ),
                       SizedBox(height: 10),
@@ -96,7 +101,12 @@ class _MultiplayerState extends State<Multiplayer> {
                         ),
                       ),
                       SizedBox(height: 10),
-                      Uihelper.joinbtn(buttonnname: "Join", callback: () {}),
+                      Uihelper.joinbtn(
+                          buttonnname: "Join",
+                          callback: () {
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (_) => Joinroom()));
+                          }),
                     ],
                   ),
                 ),

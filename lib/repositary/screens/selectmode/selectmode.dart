@@ -17,32 +17,50 @@ class _SelectmodeState extends State<Selectmode> {
       backgroundColor: Color(0xFF171717),
       appBar: AppBar(
         backgroundColor: Color(0xFF171717),
-        elevation: 0,
+        leadingWidth: 80,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 15.0),
-          child: CircleAvatar(
-            radius: 30,
-            backgroundColor: Colors.white,
-            child: Uihelper.CustomImage(imgurl: "nithish1.jpeg"),
+          padding: EdgeInsets.only(left: 0),
+          child: Align(
+            alignment: Alignment.center,
+            child: CircleAvatar(
+              radius: 30,
+              backgroundImage: AssetImage("assets/images/nithish1.jpeg"),
+            ),
           ),
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 0),
+            padding: EdgeInsets.only(left: 0),
             child: Row(
               children: [
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.notifications_none, color: Colors.white),
+                  icon: Icon(
+                    Icons.notifications_none,
+                    color: Colors.white,
+                  ),
+                  padding: EdgeInsets.zero,
+                  constraints: BoxConstraints(),
                 ),
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.settings, color: Colors.white),
-                ),
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.white,
+                  ),
+                  padding: EdgeInsets.zero,
+                  constraints: BoxConstraints(),
+                )
               ],
             ),
-          ),
+          )
         ],
+        title: Uihelper.bingo(
+          imgurl: "bingo.png",
+          height: 40,
+          width: 120,
+        ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Center(

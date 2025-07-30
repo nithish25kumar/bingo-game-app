@@ -1,3 +1,5 @@
+import 'package:bingo/repositary/screens/gameSettings/gameSettings.dart';
+import 'package:bingo/repositary/screens/room/room.dart';
 import 'package:bingo/repositary/screens/widgets/uihelper.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +28,8 @@ class _CustomizeboardState extends State<Customizeboard> {
         elevation: 0,
         leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (_) => Room()));
             },
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
@@ -119,7 +122,12 @@ class _CustomizeboardState extends State<Customizeboard> {
                           height: 40,
                           width: 130,
                           child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => Gamesettings()));
+                              },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.blue,
                                   shape: RoundedRectangleBorder(
