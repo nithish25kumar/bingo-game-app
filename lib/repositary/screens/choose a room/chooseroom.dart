@@ -1,3 +1,4 @@
+import 'package:bingo/repositary/screens/joinroom/joinroom.dart';
 import 'package:flutter/material.dart';
 
 class Chooseroom extends StatefulWidget {
@@ -15,7 +16,10 @@ class _ChooseroomState extends State<Chooseroom> {
       appBar: AppBar(
         backgroundColor: Color(0xFF171717),
         leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (_) => Joinroom()));
+            },
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
               color: Colors.white,
