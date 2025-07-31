@@ -3,6 +3,7 @@ import 'package:bingo/repositary/screens/widgets/uihelper.dart';
 import 'package:flutter/material.dart';
 
 import '../card/win_or_lose/finishcard.dart';
+import '../splashpage/splashscreen.dart';
 
 class Game extends StatefulWidget {
   const Game({super.key});
@@ -14,6 +15,7 @@ class Game extends StatefulWidget {
 class _GameState extends State<Game> {
   List<int> numbers = List.generate(25, (index) => index + 1);
   bool showResult = false;
+  bool showexit = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +33,13 @@ class _GameState extends State<Game> {
             )),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  setState(() {
+                    showexit = true;
+                  });
+                });
+              },
               icon: Icon(
                 Icons.settings,
                 color: Colors.white,
@@ -218,6 +226,107 @@ class _GameState extends State<Game> {
             ],
           ),
         ),
+        if (showexit)
+          Positioned.fill(
+              child: Container(
+            color: Colors.black.withOpacity(0.6),
+            child: Center(
+              child: Container(
+                height: 190,
+                width: 250,
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade900,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.white70)),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 4,
+                            offset: Offset(0, 2),
+                          )
+                        ],
+                      ),
+                      child: Text(
+                        "Close App",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Do you want to exit the game? ",
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w300),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 40,
+                          width: 100,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  showexit = false;
+                                });
+                              },
+                              child: Text("Cancel"),
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0)),
+                                backgroundColor: Colors.redAccent,
+                                foregroundColor: Colors.white,
+                              )),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        SizedBox(
+                          height: 40,
+                          width: 100,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => Splashscreen()));
+                              },
+                              child: Text("Exit"),
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0)),
+                                backgroundColor: Colors.blue,
+                                foregroundColor: Colors.white,
+                              )),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          )),
         if (showResult)
           Positioned.fill(
               child: Container(
@@ -289,7 +398,6 @@ class _GameState extends State<Game> {
     );
   }
 
-  // 🔹 Player Row (with BINGO)
   Widget _buildPlayerRow(String name, Color color) {
     return Row(
       children: [
