@@ -1,3 +1,4 @@
+import 'package:bingo/repositary/screens/selectmode/selectmode.dart';
 import 'package:flutter/material.dart';
 
 class Userprofile extends StatefulWidget {
@@ -19,7 +20,10 @@ class _UserprofileState extends State<Userprofile> {
         backgroundColor: Color(0xFF171717),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (_) => Selectmode()));
+              },
               icon: Icon(
                 Icons.close,
                 size: 30,

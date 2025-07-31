@@ -1,3 +1,4 @@
+import 'package:bingo/repositary/screens/userprofile/userprofile.dart';
 import 'package:flutter/material.dart';
 
 import '../multiplayer/multiplayer.dart';
@@ -22,9 +23,15 @@ class _SelectmodeState extends State<Selectmode> {
           padding: EdgeInsets.only(left: 0),
           child: Align(
             alignment: Alignment.center,
-            child: CircleAvatar(
-              radius: 30,
-              backgroundImage: AssetImage("assets/images/nithish1.jpeg"),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (_) => Userprofile()));
+              },
+              child: CircleAvatar(
+                radius: 30,
+                backgroundImage: AssetImage("assets/images/nithish1.jpeg"),
+              ),
             ),
           ),
         ),
