@@ -1,4 +1,5 @@
 import 'package:bingo/repositary/screens/choose%20a%20room/chooseroom.dart';
+import 'package:bingo/repositary/screens/room/room.dart';
 import 'package:bingo/repositary/screens/widgets/uihelper.dart';
 import 'package:flutter/material.dart';
 
@@ -120,10 +121,8 @@ class _JoinroomState extends State<Joinroom> {
                           width: 180,
                           child: ElevatedButton(
                               onPressed: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => Chooseroom()));
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (_) => Room()));
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.blue,

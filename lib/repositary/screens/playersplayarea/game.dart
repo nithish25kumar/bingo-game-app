@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../card/win_or_lose/finishcard.dart';
 import '../splashpage/splashscreen.dart';
+import '../userprofile/userprofile.dart';
 
 class Game extends StatefulWidget {
   const Game({super.key});
@@ -21,16 +22,31 @@ class _GameState extends State<Game> {
     return Scaffold(
       backgroundColor: Color(0xFF171717),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Color(0xFF171717),
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (_) => Gamesettings()));
-            },
-            icon: Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.white,
-            )),
+        leadingWidth: 80,
+        leading: Padding(
+          padding: EdgeInsets.only(left: 0),
+          child: Align(
+            alignment: Alignment.center,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (_) => Userprofile()));
+              },
+              child: CircleAvatar(
+                radius: 30,
+                backgroundImage: AssetImage("assets/images/nithish1.jpeg"),
+              ),
+            ),
+          ),
+        ),
+        title: Uihelper.bingo(
+          imgurl: "bingo.png",
+          height: 40,
+          width: 120,
+        ),
+        centerTitle: true,
         actions: [
           IconButton(
               onPressed: () {

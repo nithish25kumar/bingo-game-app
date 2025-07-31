@@ -1,5 +1,8 @@
 import 'package:bingo/repositary/screens/joinroom/joinroom.dart';
+import 'package:bingo/repositary/screens/playersplayarea/game.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/uihelper.dart';
 
 class Chooseroom extends StatefulWidget {
   const Chooseroom({super.key});
@@ -295,7 +298,15 @@ class _ChooseroomState extends State<Chooseroom> {
                   ),
                 ),
               ),
-            )
+            ),
+            SizedBox(height: 20),
+            Uihelper.CustomButton1(
+              buttonnname: "Get.Set.Play",
+              callback: () {
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (_) => Game()));
+              },
+            ),
           ],
         ),
       ),

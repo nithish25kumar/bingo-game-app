@@ -1,4 +1,5 @@
 import 'package:bingo/repositary/screens/gameSettings/gameSettings.dart';
+import 'package:bingo/repositary/screens/multiplayer/multiplayer.dart';
 import 'package:bingo/repositary/screens/room/room.dart';
 import 'package:bingo/repositary/screens/widgets/uihelper.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class _CustomizeboardState extends State<Customizeboard> {
         leading: IconButton(
             onPressed: () {
               Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (_) => Room()));
+                  context, MaterialPageRoute(builder: (_) => Multiplayer()));
             },
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
