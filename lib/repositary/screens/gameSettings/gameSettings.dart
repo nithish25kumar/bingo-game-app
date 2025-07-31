@@ -1,4 +1,5 @@
 import 'package:bingo/repositary/screens/gameSettings/customizeBoard.dart';
+import 'package:bingo/repositary/screens/playersplayarea/game.dart';
 import 'package:flutter/material.dart';
 
 class Gamesettings extends StatefulWidget {
@@ -225,7 +226,10 @@ class _GamesettingsState extends State<Gamesettings> {
                 height: 50,
                 width: 300,
                 child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context, MaterialPageRoute(builder: (_) => Game()));
+                    },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xff007ef3),
                         foregroundColor: Colors.white,
@@ -235,7 +239,7 @@ class _GamesettingsState extends State<Gamesettings> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12))),
                     child: Column(
-                      children: [Text("Invite Others")],
+                      children: [Text("Continue game")],
                     )),
               ),
             )

@@ -168,7 +168,12 @@ class _RoomState extends State<Room> {
                   ),
                 ],
               ),
-              SizedBox(height: 280),
+              SizedBox(height: 220),
+              Uihelper.CustomButton1(
+                buttonnname: "Invite Friends",
+                callback: () {},
+              ),
+              SizedBox(height: 20),
               Uihelper.CustomButton1(
                 buttonnname: "Get.Set.Play",
                 callback: () {},
