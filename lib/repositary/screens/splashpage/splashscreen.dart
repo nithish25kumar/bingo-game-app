@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bingo/repositary/screens/splashpage/siginPage.dart';
 import 'package:flutter/material.dart';
 
 import '../selectmode/selectmode.dart' show Selectmode;
@@ -19,7 +20,7 @@ class _SplashscreenState extends State<Splashscreen> {
     Timer(Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => Selectmode()),
+        MaterialPageRoute(builder: (_) => Siginpage()),
       );
     });
   }

@@ -12,7 +12,20 @@
           "package_name": "com.example.bingo"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "21624455168-i64ce9hrgghgfa4hprftvoek6lsu4l7m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bingo",
+            "certificate_hash": "f8a65109a78b0d97a853109832e4962ee0478e06"
+          }
+        },
+        {
+          "client_id": "21624455168-8vtg84ad8ptde5a76vorbqddtkdjd0vh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC0YmtxhD499ST41oUj5_xi0BhSdVrbKx8"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "21624455168-8vtg84ad8ptde5a76vorbqddtkdjd0vh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "21624455168-mlckqprlhdp20vt861nlb7j8r338skmm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bingo"
+              }
+            }
+          ]
         }
       }
     }
