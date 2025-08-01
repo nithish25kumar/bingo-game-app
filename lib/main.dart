@@ -5,9 +5,12 @@ import 'package:bingo/repositary/screens/playersplayarea/game.dart';
 import 'package:bingo/repositary/screens/room/room.dart';
 import 'package:bingo/repositary/screens/splashpage/splashscreen.dart';
 import 'package:bingo/repositary/screens/userprofile/userprofile.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

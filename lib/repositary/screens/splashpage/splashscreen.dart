@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bingo/repositary/screens/splashpage/siginPage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../selectmode/selectmode.dart' show Selectmode;
@@ -23,6 +24,19 @@ class _SplashscreenState extends State<Splashscreen> {
         MaterialPageRoute(builder: (_) => Siginpage()),
       );
     });
+  }
+
+  void checkUserStatus() {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (_) => Selectmode()));
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => Siginpage()),
+      );
+    }
   }
 
   @override

@@ -1,5 +1,9 @@
+import 'package:bingo/repositary/screens/selectmode/selectmode.dart';
 import 'package:bingo/repositary/screens/widgets/uihelper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Siginpage extends StatefulWidget {
   const Siginpage({super.key});
@@ -9,6 +13,53 @@ class Siginpage extends StatefulWidget {
 }
 
 class _SiginpageState extends State<Siginpage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<void> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      if (googleUser == null) {
+        Uihelper.showSnackBar(context, "Sign in aborted");
+        return;
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final UserCredential userCredential =
+          await _auth.signInWithCredential(credential);
+
+      final User? user = userCredential.user;
+
+      if (user != null) {
+        final userDoc = _firestore.collection("users").doc(user.uid);
+        final docSnapshot = await userDoc.get();
+
+        if (!docSnapshot.exists) {
+          await userDoc.set({
+            "uid": user.uid,
+            "name": user.displayName ?? "",
+            "email": user.email ?? "",
+            "photo": user.photoURL ?? "",
+            "createdAt": FieldValue.serverTimestamp(),
+          });
+        }
+
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => Selectmode()));
+      }
+    } catch (e) {
+      Uihelper.showSnackBar(context, "Error: ${e.toString()}");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +77,9 @@ class _SiginpageState extends State<Siginpage> {
                   height: 60,
                   width: 200,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      signInWithGoogle();
+                    },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         foregroundColor: Colors.black,
