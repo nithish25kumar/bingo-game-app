@@ -1,4 +1,5 @@
 import 'package:bingo/repositary/screens/userprofile/userprofile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../multiplayer/multiplayer.dart';
@@ -12,6 +13,7 @@ class Selectmode extends StatefulWidget {
 }
 
 class _SelectmodeState extends State<Selectmode> {
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,10 @@ class _SelectmodeState extends State<Selectmode> {
               },
               child: CircleAvatar(
                 radius: 30,
-                backgroundImage: AssetImage("assets/images/nithish1.jpeg"),
+                backgroundImage: user?.photoURL != null
+                    ? NetworkImage(user!.photoURL!)
+                    : AssetImage("assets/images/default_avatar.png")
+                        as ImageProvider,
               ),
             ),
           ),
