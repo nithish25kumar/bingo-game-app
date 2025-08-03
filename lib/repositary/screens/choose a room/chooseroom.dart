@@ -1,4 +1,4 @@
-import 'package:bingo/repositary/screens/joinroom/joinroom.dart';
+/*import 'package:bingo/repositary/screens/joinroom/joinroom.dart';
 import 'package:bingo/repositary/screens/playersplayarea/game.dart';
 import 'package:flutter/material.dart';
 
@@ -310,3 +310,4 @@ class _ChooseroomState extends State<Chooseroom> {
     );
   }
 }
+*/

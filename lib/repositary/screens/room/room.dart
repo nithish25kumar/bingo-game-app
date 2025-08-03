@@ -1,11 +1,19 @@
 import 'package:bingo/repositary/screens/choose%20a%20room/chooseroom.dart';
 import 'package:bingo/repositary/screens/multiplayer/multiplayer.dart';
+import 'package:bingo/repositary/screens/playersplayarea/game.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/uihelper.dart';
 
 class Room extends StatefulWidget {
-  const Room({super.key});
+  final int selectedTimer;
+  final Color selectedColor;
+  final List<int> customBoard;
+  const Room(
+      {super.key,
+      required this.selectedTimer,
+      required this.selectedColor,
+      required this.customBoard});
 
   @override
   State<Room> createState() => _RoomState();
@@ -179,7 +187,14 @@ class _RoomState extends State<Room> {
                 buttonnname: "Get.Set.Play",
                 callback: () {
                   Navigator.pushReplacement(
-                      context, MaterialPageRoute(builder: (_) => Chooseroom()));
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => Game(
+                          selectedColor: widget.selectedColor,
+                          selectedTimer: widget.selectedTimer,
+                          customBoard: widget.customBoard),
+                    ),
+                  );
                 },
               ),
             ],

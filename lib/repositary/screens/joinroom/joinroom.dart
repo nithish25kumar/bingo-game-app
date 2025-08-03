@@ -1,4 +1,5 @@
 import 'package:bingo/repositary/screens/choose%20a%20room/chooseroom.dart';
+import 'package:bingo/repositary/screens/multiplayer/multiplayer.dart';
 import 'package:bingo/repositary/screens/room/room.dart';
 import 'package:bingo/repositary/screens/widgets/uihelper.dart';
 import 'package:flutter/material.dart';
@@ -17,17 +18,15 @@ class _JoinroomState extends State<Joinroom> {
       backgroundColor: Color(0xFF171717),
       appBar: AppBar(
         backgroundColor: Color(0xFF171717),
-        leadingWidth: 80,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 0),
-          child: Align(
-            alignment: Alignment.center,
-            child: CircleAvatar(
-              radius: 30,
-              backgroundImage: AssetImage("assets/images/nithish1.jpeg"),
-            ),
-          ),
-        ),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (_) => Multiplayer()));
+            },
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.white,
+            )),
         actions: [
           Padding(
             padding: EdgeInsets.only(left: 0),
@@ -48,8 +47,6 @@ class _JoinroomState extends State<Joinroom> {
                     Icons.settings,
                     color: Colors.white,
                   ),
-                  padding: EdgeInsets.zero,
-                  constraints: BoxConstraints(),
                 )
               ],
             ),
@@ -72,7 +69,8 @@ class _JoinroomState extends State<Joinroom> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Color(0xff3A3A3A),
-                    borderRadius: BorderRadius.circular(0)),
+                    borderRadius: BorderRadius.circular(0),
+                    border: Border.all(color: Colors.white70)),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 20, left: 20),
                   child: Column(
@@ -118,8 +116,17 @@ class _JoinroomState extends State<Joinroom> {
                           width: 180,
                           child: ElevatedButton(
                               onPressed: () {
-                                Navigator.pushReplacement(context,
-                                    MaterialPageRoute(builder: (_) => Room()));
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => Room(
+                                      selectedColor: Colors.blue,
+                                      selectedTimer: 60,
+                                      customBoard: List.generate(
+                                          25, (index) => index + 1),
+                                    ),
+                                  ),
+                                );
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.blue,
