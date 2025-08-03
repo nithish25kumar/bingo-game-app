@@ -2,6 +2,8 @@ import 'package:bingo/repositary/screens/choose%20a%20room/chooseroom.dart';
 import 'package:bingo/repositary/screens/multiplayer/multiplayer.dart';
 import 'package:bingo/repositary/screens/room/room.dart';
 import 'package:bingo/repositary/screens/widgets/uihelper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Joinroom extends StatefulWidget {
@@ -99,7 +101,7 @@ class _JoinroomState extends State<Joinroom> {
                       Uihelper.CustomTextField(
                         controller: roomIdcontroller,
                         text: "Enter room ID",
-                        textinputtype: TextInputType.number,
+                        textinputtype: TextInputType.text,
                         context: context,
                         icondata: Icons.search,
                         onChanged: (value) {
@@ -115,11 +117,55 @@ class _JoinroomState extends State<Joinroom> {
                           height: 50,
                           width: 180,
                           child: ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
+                                final roomCode =
+                                    roomIdcontroller.text.trim().toUpperCase();
+                                if (roomCode.isEmpty) {
+                                  Uihelper.showSnackBar(
+                                      context, "Please enter a room code");
+                                  return;
+                                }
+
+                                final currentUser =
+                                    FirebaseAuth.instance.currentUser;
+                                if (currentUser == null) return;
+
+                                final userDoc = await FirebaseFirestore.instance
+                                    .collection('users')
+                                    .doc(currentUser.uid)
+                                    .get();
+                                final userData = userDoc.data();
+                                final name = userData?['name'] ?? 'Unknown';
+                                final photoUrl = userData?['photoUrl'] ?? '';
+
+                                final roomDoc = await FirebaseFirestore.instance
+                                    .collection('rooms')
+                                    .doc(roomCode)
+                                    .get();
+                                if (!roomDoc.exists) {
+                                  Uihelper.showSnackBar(
+                                      context, "Room not found");
+                                  return;
+                                }
+
+                                await FirebaseFirestore.instance
+                                    .collection('rooms')
+                                    .doc(roomCode)
+                                    .collection('players')
+                                    .doc(currentUser.uid)
+                                    .set({
+                                  'name': name,
+                                  'photoUrl': photoUrl,
+                                  'color': Colors.blue.value.toRadixString(16),
+                                  'isHost': false,
+                                  'joinedAt': FieldValue.serverTimestamp(),
+                                });
+
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                     builder: (_) => Room(
+                                      roomCode: roomCode,
                                       selectedColor: Colors.blue,
                                       selectedTimer: 60,
                                       customBoard: List.generate(

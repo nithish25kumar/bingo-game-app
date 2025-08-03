@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../multiplayer/multiplayer.dart';
 import 'customizeBoard.dart';
@@ -27,7 +29,31 @@ class _GamesettingsState extends State<Gamesettings> {
         6, (_) => chars.codeUnitAt(rand.nextInt(chars.length))));
   }
 
-  void _navigateToCustomizeBoard() {
+  void _navigateToCustomizeBoard() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser == null) return;
+
+    final userDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUser.uid)
+        .get();
+    final userData = userDoc.data();
+    final name = userData?['name'] ?? 'Unknown';
+    final photoUrl = userData?['photoUrl'] ?? '';
+
+    await FirebaseFirestore.instance
+        .collection('rooms')
+        .doc(roomCode)
+        .collection('players')
+        .doc(currentUser.uid)
+        .set({
+      'name': name,
+      'photoUrl': photoUrl,
+      'color': selectedColor?.value.toRadixString(16),
+      'isHost': true,
+      'joinedAt': FieldValue.serverTimestamp(),
+    });
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(

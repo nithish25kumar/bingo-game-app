@@ -1,4 +1,5 @@
 import 'package:bingo/repositary/screens/widgets/uihelper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,7 @@ class Game extends StatefulWidget {
   final Color selectedColor;
   final int selectedTimer;
   final List<int> customBoard;
-  final String roomCode; // add this
+  final String roomCode;
 
   const Game({
     super.key,
@@ -22,6 +23,8 @@ class Game extends StatefulWidget {
 }
 
 class _GameState extends State<Game> {
+  List<Map<String, dynamic>> joinedPlayers = [];
+
   User? user = FirebaseAuth.instance.currentUser;
   int completedLines = 0;
   List<bool> bingoStrike = [false, false, false, false, false];
@@ -36,6 +39,20 @@ class _GameState extends State<Game> {
   void initState() {
     super.initState();
     numbers = widget.customBoard;
+    _listenToPlayers();
+  }
+
+  void _listenToPlayers() {
+    FirebaseFirestore.instance
+        .collection('rooms')
+        .doc(widget.roomCode)
+        .collection('players')
+        .snapshots()
+        .listen((snapshot) {
+      setState(() {
+        joinedPlayers = snapshot.docs.map((doc) => doc.data()).toList();
+      });
+    });
   }
 
   void checkBingo() {
@@ -155,11 +172,12 @@ class _GameState extends State<Game> {
                   ],
                 ),
                 SizedBox(height: 20),
-                _buildPlayerRow("Player 2 :", Colors.red),
+                _buildPlayerRow(
+                  user?.displayName ?? 'You',
+                  user?.photoURL ?? '',
+                  widget.selectedColor,
+                ),
                 SizedBox(height: 20),
-                _buildPlayerRow("Player 3 :", Colors.yellowAccent),
-                SizedBox(height: 20),
-                _buildPlayerRow("Player 4 :", Colors.blue),
                 SizedBox(height: 40),
                 Padding(
                   padding: const EdgeInsets.only(right: 20, top: 10),
@@ -452,10 +470,15 @@ class _GameState extends State<Game> {
     );
   }
 
-  Widget _buildPlayerRow(String name, Color color) {
+  Widget _buildPlayerRow(String name, String? photoUrl, Color color) {
     return Row(
       children: [
-        CircleAvatar(radius: 10, backgroundColor: Colors.white),
+        CircleAvatar(
+          radius: 15,
+          backgroundImage: photoUrl != null && photoUrl.isNotEmpty
+              ? NetworkImage(photoUrl)
+              : AssetImage("assets/images/default_avatar.png") as ImageProvider,
+        ),
         SizedBox(width: 15),
         Text(name, style: TextStyle(color: Colors.white70)),
         SizedBox(width: 20),
