@@ -5,11 +5,13 @@ import '../playersplayarea/game.dart';
 class Customizeboard extends StatefulWidget {
   final Color selectedColor;
   final int selectedTimer;
+  final String roomCode;
 
   const Customizeboard({
     super.key,
     required this.selectedColor,
     required this.selectedTimer,
+    required this.roomCode,
   });
 
   @override
@@ -142,6 +144,7 @@ class _CustomizeboardState extends State<Customizeboard> {
                                     selectedColor: widget.selectedColor,
                                     selectedTimer: widget.selectedTimer,
                                     customBoard: numbers,
+                                    roomCode: widget.roomCode,
                                   ),
                                 ),
                               );

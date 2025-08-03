@@ -34,6 +34,7 @@ class _GamesettingsState extends State<Gamesettings> {
         builder: (_) => Customizeboard(
           selectedColor: selectedColor ?? Colors.deepPurpleAccent,
           selectedTimer: selectedTimer,
+          roomCode: roomCode,
         ),
       ),
     );

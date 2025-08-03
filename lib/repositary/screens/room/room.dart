@@ -1,6 +1,6 @@
 import 'package:bingo/repositary/screens/choose%20a%20room/chooseroom.dart';
 import 'package:bingo/repositary/screens/multiplayer/multiplayer.dart';
-import 'package:bingo/repositary/screens/playersplayarea/game.dart';
+
 import 'package:flutter/material.dart';
 
 import '../widgets/uihelper.dart';
@@ -185,17 +185,7 @@ class _RoomState extends State<Room> {
               SizedBox(height: 20),
               Uihelper.CustomButton1(
                 buttonnname: "Get.Set.Play",
-                callback: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => Game(
-                          selectedColor: widget.selectedColor,
-                          selectedTimer: widget.selectedTimer,
-                          customBoard: widget.customBoard),
-                    ),
-                  );
-                },
+                callback: () {},
               ),
             ],
           ),

@@ -8,14 +8,15 @@ class Game extends StatefulWidget {
   final Color selectedColor;
   final int selectedTimer;
   final List<int> customBoard;
+  final String roomCode; // add this
 
   const Game({
     super.key,
     required this.selectedColor,
     required this.selectedTimer,
     required this.customBoard,
+    required this.roomCode,
   });
-
   @override
   State<Game> createState() => _GameState();
 }
@@ -130,13 +131,28 @@ class _GameState extends State<Game> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Game",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 23,
-                    fontWeight: FontWeight.w500,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      "Game :",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 23,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Room ID: ${widget.roomCode}",
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 20),
                 _buildPlayerRow("Player 2 :", Colors.red),
