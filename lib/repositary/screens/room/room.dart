@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:bingo/repositary/screens/gameSettings/customizeBoard.dart';
 import 'package:bingo/repositary/screens/multiplayer/multiplayer.dart';
 import 'package:bingo/repositary/screens/playersplayarea/game.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,6 +28,20 @@ class Room extends StatefulWidget {
 }
 
 class _RoomState extends State<Room> {
+  late String roomCode;
+  @override
+  void initState() {
+    super.initState();
+    roomCode = _generateRoomCode();
+  }
+
+  String _generateRoomCode() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    Random rand = Random();
+    return String.fromCharCodes(Iterable.generate(
+        6, (_) => chars.codeUnitAt(rand.nextInt(chars.length))));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -181,13 +198,10 @@ class _RoomState extends State<Room> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => Game(
-                            roomCode: widget.roomCode,
-                            selectedColor: widget.selectedColor,
-                            selectedTimer: widget.selectedTimer,
-                            customBoard: widget.customBoard,
-                          ),
-                        ),
+                            builder: (_) => Customizeboard(
+                                selectedColor: widget.selectedColor,
+                                selectedTimer: widget.selectedTimer,
+                                roomCode: roomCode)),
                       );
                     },
                   ),

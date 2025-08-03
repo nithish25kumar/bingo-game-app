@@ -1,10 +1,4 @@
-import 'package:bingo/repositary/screens/choose%20a%20room/chooseroom.dart';
-import 'package:bingo/repositary/screens/gameSettings/customizeBoard.dart';
-import 'package:bingo/repositary/screens/joinroom/joinroom.dart';
-import 'package:bingo/repositary/screens/playersplayarea/game.dart';
-import 'package:bingo/repositary/screens/room/room.dart';
 import 'package:bingo/repositary/screens/splashpage/splashscreen.dart';
-import 'package:bingo/repositary/screens/userprofile/userprofile.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
