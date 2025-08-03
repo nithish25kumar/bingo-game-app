@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import '../multiplayer/multiplayer.dart';
 import 'customizeBoard.dart';
@@ -11,6 +13,19 @@ class Gamesettings extends StatefulWidget {
 class _GamesettingsState extends State<Gamesettings> {
   Color? selectedColor;
   int selectedTimer = 10;
+  late String roomCode;
+  @override
+  void initState() {
+    super.initState();
+    roomCode = _generateRoomCode();
+  }
+
+  String _generateRoomCode() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    Random rand = Random();
+    return String.fromCharCodes(Iterable.generate(
+        6, (_) => chars.codeUnitAt(rand.nextInt(chars.length))));
+  }
 
   void _navigateToCustomizeBoard() {
     Navigator.pushReplacement(
@@ -117,6 +132,30 @@ class _GamesettingsState extends State<Gamesettings> {
             SizedBox(width: 10),
             _timerOption(30)
           ]),
+          SizedBox(
+            height: 40,
+          ),
+          Row(
+            children: [
+              Text(
+                "Room ID :",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                roomCode,
+                style: TextStyle(
+                    color: Colors.greenAccent,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
           Spacer(),
           Center(
             child: SizedBox(
@@ -125,6 +164,7 @@ class _GamesettingsState extends State<Gamesettings> {
               child: ElevatedButton(
                 onPressed: _navigateToCustomizeBoard,
                 style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
                   backgroundColor: Color(0xff007ef3),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12)),

@@ -98,7 +98,10 @@ class _SelectmodeState extends State<Selectmode> {
               SizedBox(height: 20),
               Uihelper.CustomButton1(
                 buttonnname: "Single Player",
-                callback: () {},
+                callback: () {
+                  Uihelper.showSnackBar(
+                      context, "Just wrapping it up – won't be long.");
+                },
               ),
             ],
           ),
