@@ -1,66 +1,28 @@
 import 'dart:math';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:bingo/repositary/screens/selectmode/selectmode.dart';
+import 'package:bingo/repositary/screens/singleplayergame/customboard.dart';
+
 import 'package:flutter/material.dart';
 import '../multiplayer/multiplayer.dart';
-import 'customizeBoard.dart';
 
-class Gamesettings extends StatefulWidget {
-  const Gamesettings({super.key});
+class Gamesettingsingle extends StatefulWidget {
+  const Gamesettingsingle({super.key});
   @override
-  State<Gamesettings> createState() => _GamesettingsState();
+  State<Gamesettingsingle> createState() => _GamesettingsingleState();
 }
 
-class _GamesettingsState extends State<Gamesettings> {
+class _GamesettingsingleState extends State<Gamesettingsingle> {
   Color? selectedColor;
   int selectedTimer = 10;
-  late String roomCode;
-  @override
-  void initState() {
-    super.initState();
-    roomCode = _generateRoomCode();
-  }
-
-  String _generateRoomCode() {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    Random rand = Random();
-    return String.fromCharCodes(Iterable.generate(
-        6, (_) => chars.codeUnitAt(rand.nextInt(chars.length))));
-  }
 
   void _navigateToCustomizeBoard() async {
-    final currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser == null) return;
-
-    final userDoc = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(currentUser.uid)
-        .get();
-    final userData = userDoc.data();
-    final name = userData?['name'] ?? 'Unknown';
-    final photoUrl = userData?['photoUrl'] ?? '';
-
-    await FirebaseFirestore.instance
-        .collection('rooms')
-        .doc(roomCode)
-        .collection('players')
-        .doc(currentUser.uid)
-        .set({
-      'name': name,
-      'photoUrl': photoUrl,
-      'color': selectedColor?.value.toRadixString(16),
-      'isHost': true,
-      'joinedAt': FieldValue.serverTimestamp(),
-    });
-
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (_) => Customizeboard(
+        builder: (_) => Customboard(
           selectedColor: selectedColor ?? Colors.deepPurpleAccent,
           selectedTimer: selectedTimer,
-          roomCode: roomCode,
         ),
       ),
     );
@@ -114,7 +76,7 @@ class _GamesettingsState extends State<Gamesettings> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
           onPressed: () => Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (_) => Multiplayer())),
+              context, MaterialPageRoute(builder: (_) => Selectmode())),
         ),
       ),
       body: Padding(
@@ -161,27 +123,6 @@ class _GamesettingsState extends State<Gamesettings> {
           ]),
           SizedBox(
             height: 40,
-          ),
-          Row(
-            children: [
-              Text(
-                "Room ID :",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                roomCode,
-                style: TextStyle(
-                    color: Colors.greenAccent,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              )
-            ],
           ),
           Spacer(),
           Center(

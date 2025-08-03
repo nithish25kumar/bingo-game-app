@@ -1,3 +1,4 @@
+import 'package:bingo/repositary/screens/singleplayergame/gamesettingsingle.dart';
 import 'package:bingo/repositary/screens/userprofile/userprofile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -99,8 +100,8 @@ class _SelectmodeState extends State<Selectmode> {
               Uihelper.CustomButton1(
                 buttonnname: "Single Player",
                 callback: () {
-                  Uihelper.showSnackBar(
-                      context, "Just wrapping it up – won't be long.");
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (_) => Gamesettingsingle()));
                 },
               ),
             ],

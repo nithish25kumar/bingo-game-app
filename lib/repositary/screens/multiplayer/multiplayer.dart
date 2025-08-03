@@ -31,23 +31,6 @@ class _MultiplayerState extends State<Multiplayer> {
           },
           icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 0),
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.notifications_none, color: Colors.white),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.settings, color: Colors.white),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Center(

@@ -1,24 +1,24 @@
 import 'package:bingo/repositary/screens/gameSettings/gameSettings.dart';
+import 'package:bingo/repositary/screens/singleplayergame/gamesettingsingle.dart';
+import 'package:bingo/repositary/screens/singleplayergame/gamesingle.dart';
 import 'package:flutter/material.dart';
 import '../playersplayarea/game.dart';
 
-class Customizeboard extends StatefulWidget {
+class Customboard extends StatefulWidget {
   final Color selectedColor;
   final int selectedTimer;
-  final String roomCode;
 
-  const Customizeboard({
+  const Customboard({
     super.key,
     required this.selectedColor,
     required this.selectedTimer,
-    required this.roomCode,
   });
 
   @override
-  State<Customizeboard> createState() => _CustomizeboardState();
+  State<Customboard> createState() => _CustomboardState();
 }
 
-class _CustomizeboardState extends State<Customizeboard> {
+class _CustomboardState extends State<Customboard> {
   List<int> numbers = List.generate(25, (index) => index + 1);
 
   void _shuffleBoard() {
@@ -38,7 +38,7 @@ class _CustomizeboardState extends State<Customizeboard> {
           onPressed: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => Gamesettings()),
+              MaterialPageRoute(builder: (_) => Gamesettingsingle()),
             );
           },
           icon: const Icon(
@@ -140,11 +140,10 @@ class _CustomizeboardState extends State<Customizeboard> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => Game(
+                                  builder: (_) => Gamesingle(
                                     selectedColor: widget.selectedColor,
                                     selectedTimer: widget.selectedTimer,
                                     customBoard: numbers,
-                                    roomCode: widget.roomCode,
                                   ),
                                 ),
                               );
