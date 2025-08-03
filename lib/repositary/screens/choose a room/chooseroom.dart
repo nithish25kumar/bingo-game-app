@@ -302,10 +302,7 @@ class _ChooseroomState extends State<Chooseroom> {
             SizedBox(height: 20),
             Uihelper.CustomButton1(
               buttonnname: "Get.Set.Play",
-              callback: () {
-                Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (_) => Game()));
-              },
+              callback: () {},
             ),
           ],
         ),

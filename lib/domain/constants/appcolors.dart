@@ -18,7 +18,7 @@ class AppColors {
   static const Color numberTextDark = Color(0xFFFFFFFF); // white
 
   // Button colors
-  static const Color buttonLight = Colors.deepPurple;
+  static const Color buttonLight = Colors.redAccent;
   static const Color buttonLight1 = Colors.blueAccent;
 
   static const Color buttonDark = Color(0xFF81C784); // light green

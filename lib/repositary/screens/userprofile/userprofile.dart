@@ -1,5 +1,9 @@
 import 'package:bingo/repositary/screens/selectmode/selectmode.dart';
+import 'package:bingo/repositary/screens/splashpage/siginPage.dart';
+import 'package:bingo/repositary/screens/widgets/uihelper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Userprofile extends StatefulWidget {
   const Userprofile({super.key});
@@ -9,7 +13,8 @@ class Userprofile extends StatefulWidget {
 }
 
 class _UserprofileState extends State<Userprofile> {
-  String selectedCountry = 'UAE';
+  User? user = FirebaseAuth.instance.currentUser;
+  String selectedCountry = 'India';
   List<String> countries = ['UAE', 'India', 'USA', 'Germany', 'Japan'];
 
   @override
@@ -44,15 +49,16 @@ class _UserprofileState extends State<Userprofile> {
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.redAccent, width: 5)),
               child: CircleAvatar(
-                radius: 80,
-                backgroundImage: AssetImage("assets/images/nithish1.jpeg"),
-              ),
+                  radius: 80,
+                  backgroundImage: user?.photoURL != Null
+                      ? NetworkImage(user!.photoURL!)
+                      : AssetImage("assets/images/default_avatar.png")),
             ),
             SizedBox(
               height: 40,
             ),
             Text(
-              "Nithish kumar k",
+              user?.displayName != Null ? user!.displayName! : "Guest",
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 20,
@@ -140,6 +146,31 @@ class _UserprofileState extends State<Userprofile> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 50,
+            ),
+            ElevatedButton(
+                onPressed: () async {
+                  try {
+                    await FirebaseAuth.instance.signOut();
+
+                    await GoogleSignIn().signOut();
+
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => Siginpage()),
+                    );
+                  } catch (e) {
+                    Uihelper.showSnackBar(
+                        context, "Logout failed ${e.toString()}");
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0)),
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black),
+                child: Text("Logout "))
           ],
         ),
       ),

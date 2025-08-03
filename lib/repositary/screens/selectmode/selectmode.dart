@@ -30,12 +30,18 @@ class _SelectmodeState extends State<Selectmode> {
                 Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (_) => Userprofile()));
               },
-              child: CircleAvatar(
-                radius: 30,
-                backgroundImage: user?.photoURL != null
-                    ? NetworkImage(user!.photoURL!)
-                    : AssetImage("assets/images/default_avatar.png")
-                        as ImageProvider,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (_) => Userprofile()));
+                },
+                child: CircleAvatar(
+                  radius: 30,
+                  backgroundImage: user?.photoURL != null
+                      ? NetworkImage(user!.photoURL!)
+                      : AssetImage("assets/images/default_avatar.png")
+                          as ImageProvider,
+                ),
               ),
             ),
           ),

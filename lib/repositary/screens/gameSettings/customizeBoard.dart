@@ -1,11 +1,16 @@
-import 'package:bingo/repositary/screens/gameSettings/gameSettings.dart';
 import 'package:bingo/repositary/screens/multiplayer/multiplayer.dart';
-import 'package:bingo/repositary/screens/room/room.dart';
-import 'package:bingo/repositary/screens/widgets/uihelper.dart';
 import 'package:flutter/material.dart';
+import '../playersplayarea/game.dart';
 
 class Customizeboard extends StatefulWidget {
-  const Customizeboard({super.key});
+  final Color selectedColor;
+  final int selectedTimer;
+
+  const Customizeboard({
+    super.key,
+    required this.selectedColor,
+    required this.selectedTimer,
+  });
 
   @override
   State<Customizeboard> createState() => _CustomizeboardState();
@@ -23,45 +28,50 @@ class _CustomizeboardState extends State<Customizeboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF171717),
+      backgroundColor: const Color(0xFF171717),
       appBar: AppBar(
-        backgroundColor: Color(0xFF171717),
+        backgroundColor: const Color(0xFF171717),
         elevation: 0,
         leading: IconButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (_) => Multiplayer()));
-            },
-            icon: Icon(
-              Icons.arrow_back_ios_new_rounded,
-              color: Colors.white,
-            )),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => const Multiplayer()),
+            );
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.white,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 20, top: 10, right: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Host",
               style: TextStyle(
-                  color: Colors.white60,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20),
+                color: Colors.white60,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
             ),
-            Text(
+            const Text(
               "Game Settings",
               style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25),
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+              ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               height: 480,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Color(0xff373c6d),
+                color: const Color(0xff373c6d),
                 borderRadius: BorderRadius.circular(30),
                 border: Border.all(color: Colors.white),
               ),
@@ -70,11 +80,11 @@ class _CustomizeboardState extends State<Customizeboard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Customize your board:",
                       style: TextStyle(color: Colors.white60, fontSize: 18),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Expanded(
                       child: GridView.count(
                         crossAxisCount: 5,
@@ -83,13 +93,13 @@ class _CustomizeboardState extends State<Customizeboard> {
                         children: numbers.map((num) {
                           return Container(
                             decoration: BoxDecoration(
-                              color: Color(0xff7e0aff),
+                              color: widget.selectedColor,
                               borderRadius: BorderRadius.circular(10),
                             ),
                             alignment: Alignment.center,
                             child: Text(
                               '$num',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -99,44 +109,54 @@ class _CustomizeboardState extends State<Customizeboard> {
                         }).toList(),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
                         SizedBox(
                           height: 40,
                           width: 130,
                           child: ElevatedButton(
-                              onPressed: _shuffleBoard,
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5))),
-                              child: Text(
-                                "Redo",
-                                style: TextStyle(color: Colors.white),
-                              )),
+                            onPressed: _shuffleBoard,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                            ),
+                            child: const Text(
+                              "Redo",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
+                        const SizedBox(width: 10),
                         SizedBox(
                           height: 40,
                           width: 130,
                           child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => Gamesettings()));
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blue,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5))),
-                              child: Text(
-                                "Save",
-                                style: TextStyle(color: Colors.white),
-                              )),
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => Game(
+                                    selectedColor: widget.selectedColor,
+                                    selectedTimer: widget.selectedTimer,
+                                    customBoard: numbers,
+                                  ),
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                            ),
+                            child: const Text(
+                              "Save",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
                         )
                       ],
                     )

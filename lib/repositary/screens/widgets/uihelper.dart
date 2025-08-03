@@ -10,7 +10,7 @@ class Uihelper {
     return Image.asset(
       "assets/images/$imgurl",
       height: 500,
-      width: width,
+      width: 290,
       fit: BoxFit.contain,
     );
   }
@@ -83,13 +83,13 @@ class Uihelper {
   }) {
     return SizedBox(
       height: 50,
-      width: 320,
+      width: 350,
       child: ElevatedButton(
         onPressed: callback,
         style: ElevatedButton.styleFrom(
           backgroundColor: buttoncolor ?? AppColors.buttonLight,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(0),
           ),
         ),
         child: Text(
@@ -112,13 +112,13 @@ class Uihelper {
   }) {
     return SizedBox(
       height: 50,
-      width: 320,
+      width: 350,
       child: ElevatedButton(
         onPressed: callback,
         style: ElevatedButton.styleFrom(
           backgroundColor: buttoncolor ?? AppColors.buttonLight1,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(0),
           ),
         ),
         child: Text(
@@ -147,7 +147,7 @@ class Uihelper {
         style: ElevatedButton.styleFrom(
           backgroundColor: buttoncolor ?? AppColors.buttonLight1,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(0),
           ),
         ),
         child: Text(
@@ -176,7 +176,7 @@ class Uihelper {
         style: ElevatedButton.styleFrom(
           backgroundColor: buttoncolor ?? AppColors.buttonLight,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(0),
           ),
         ),
         child: Text(

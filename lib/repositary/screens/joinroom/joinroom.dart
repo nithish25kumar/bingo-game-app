@@ -71,10 +71,8 @@ class _JoinroomState extends State<Joinroom> {
                 height: 400,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: Color(
-                      0xff323868,
-                    ),
-                    borderRadius: BorderRadius.circular(25)),
+                    color: Color(0xff3A3A3A),
+                    borderRadius: BorderRadius.circular(0)),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 20, left: 20),
                   child: Column(
@@ -107,7 +105,6 @@ class _JoinroomState extends State<Joinroom> {
                         context: context,
                         icondata: Icons.search,
                         onChanged: (value) {
-                          // You can handle search logic here
                           print("Room ID entered: $value");
                         },
                       ),
@@ -128,7 +125,7 @@ class _JoinroomState extends State<Joinroom> {
                                   backgroundColor: Colors.blue,
                                   foregroundColor: Colors.white,
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10))),
+                                      borderRadius: BorderRadius.circular(0))),
                               child: Text(
                                 "Join",
                                 style: TextStyle(

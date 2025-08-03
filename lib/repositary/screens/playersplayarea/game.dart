@@ -1,22 +1,36 @@
-import 'package:bingo/repositary/screens/gameSettings/gameSettings.dart';
 import 'package:bingo/repositary/screens/widgets/uihelper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../card/win_or_lose/finishcard.dart';
 import '../splashpage/splashscreen.dart';
-import '../userprofile/userprofile.dart';
 
 class Game extends StatefulWidget {
-  const Game({super.key});
+  final Color selectedColor;
+  final int selectedTimer;
+  final List<int> customBoard;
+
+  const Game(
+      {super.key,
+      required this.selectedColor,
+      required this.selectedTimer,
+      required this.customBoard});
 
   @override
   State<Game> createState() => _GameState();
 }
 
 class _GameState extends State<Game> {
+  User? user = FirebaseAuth.instance.currentUser;
+
   List<int> numbers = List.generate(25, (index) => index + 1);
   bool showResult = false;
   bool showexit = false;
+  @override
+  void initState() {
+    super.initState();
+    numbers = widget.customBoard;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,14 +44,12 @@ class _GameState extends State<Game> {
           child: Align(
             alignment: Alignment.center,
             child: GestureDetector(
-              onTap: () {
-                Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (_) => Userprofile()));
-              },
+              onTap: () {},
               child: CircleAvatar(
-                radius: 30,
-                backgroundImage: AssetImage("assets/images/nithish1.jpeg"),
-              ),
+                  radius: 30,
+                  backgroundImage: user?.photoURL != Null
+                      ? NetworkImage(user!.photoURL!)
+                      : AssetImage("assets/images/default_avatar.png")),
             ),
           ),
         ),
@@ -200,7 +212,7 @@ class _GameState extends State<Game> {
                             children: numbers.map((num) {
                               return Container(
                                 decoration: BoxDecoration(
-                                    color: Color(0xff7e0aff),
+                                    color: widget.selectedColor,
                                     borderRadius: BorderRadius.circular(10)),
                                 alignment: Alignment.center,
                                 child: Text(

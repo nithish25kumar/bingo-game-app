@@ -55,12 +55,12 @@ class _MultiplayerState extends State<Multiplayer> {
             children: [
               Uihelper.CustomImage1(imgurl: "bingo.png"),
               Container(
-                height: 300,
-                width: 300,
+                height: 320,
+                width: 320,
                 decoration: BoxDecoration(
-                  color: Color(0xff2a2e50),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Color(0xff2c3054), width: 2),
+                  color: Color(0xff3A3A3A),
+                  borderRadius: BorderRadius.circular(0),
+                  border: Border.all(color: Colors.white, width: 2),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.3),
@@ -70,7 +70,7 @@ class _MultiplayerState extends State<Multiplayer> {
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(30),
                   child: Column(
                     children: [
                       Text(
@@ -83,17 +83,17 @@ class _MultiplayerState extends State<Multiplayer> {
                       ),
                       SizedBox(height: 40),
                       Uihelper.createbtn(
-                        buttonnname: "Create",
+                        buttonnname: "CREATE",
                         callback: () {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (_) => Customizeboard()));
+                                  builder: (_) => Gamesettings()));
                         },
                       ),
                       SizedBox(height: 10),
                       Text(
-                        "OR",
+                        "or",
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -102,7 +102,7 @@ class _MultiplayerState extends State<Multiplayer> {
                       ),
                       SizedBox(height: 10),
                       Uihelper.joinbtn(
-                          buttonnname: "Join",
+                          buttonnname: "JOIN",
                           callback: () {
                             Navigator.pushReplacement(context,
                                 MaterialPageRoute(builder: (_) => Joinroom()));

@@ -18,6 +18,15 @@ class _SiginpageState extends State<Siginpage> {
 
   Future<void> signInWithGoogle() async {
     try {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => Selectmode()),
+        );
+        return;
+      }
+
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
       if (googleUser == null) {
@@ -53,7 +62,9 @@ class _SiginpageState extends State<Siginpage> {
         }
 
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => Selectmode()));
+          context,
+          MaterialPageRoute(builder: (_) => Selectmode()),
+        );
       }
     } catch (e) {
       Uihelper.showSnackBar(context, "Error: ${e.toString()}");
