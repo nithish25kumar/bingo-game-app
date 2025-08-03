@@ -22,6 +22,8 @@ class Game extends StatefulWidget {
 
 class _GameState extends State<Game> {
   User? user = FirebaseAuth.instance.currentUser;
+  int completedLines = 0;
+  List<bool> bingoStrike = [false, false, false, false, false];
 
   List<int> numbers = List.generate(25, (index) => index + 1);
   List<bool> selectedCells = List.generate(25, (index) => false);
@@ -37,6 +39,7 @@ class _GameState extends State<Game> {
 
   void checkBingo() {
     int lineCount = 0;
+    List<bool> tempStrike = [false, false, false, false, false];
 
     // Check rows
     for (int i = 0; i < 5; i++) {
@@ -57,15 +60,23 @@ class _GameState extends State<Game> {
       if (allSelected) lineCount++;
     }
 
-    // Check diagonals
+    // Diagonals
     if ([0, 6, 12, 18, 24].every((i) => selectedCells[i])) lineCount++;
     if ([4, 8, 12, 16, 20].every((i) => selectedCells[i])) lineCount++;
 
-    if (lineCount >= 5) {
-      setState(() {
-        showResult = true;
-      });
+    int newCompletedLines = lineCount.clamp(0, 5);
+
+    for (int i = 0; i < newCompletedLines; i++) {
+      tempStrike[i] = true;
     }
+
+    setState(() {
+      completedLines = newCompletedLines;
+      bingoStrike = tempStrike;
+      if (completedLines == 5) {
+        showResult = true;
+      }
+    });
   }
 
   @override
@@ -151,25 +162,38 @@ class _GameState extends State<Game> {
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: "BINGO".split('').map((letter) {
+                            children: List.generate(5, (index) {
+                              final letter = "BINGO"[index];
+                              final isStruck = bingoStrike[index];
                               return Container(
                                 margin: EdgeInsets.symmetric(horizontal: 5),
+                                width: 30,
+                                height: 30,
                                 decoration: BoxDecoration(
                                   border:
                                       Border.all(color: Colors.red, width: 2),
                                   borderRadius: BorderRadius.circular(50),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: CircleAvatar(
-                                    radius: 10,
-                                    backgroundColor: Colors.transparent,
-                                    foregroundColor: Colors.white,
-                                    child: Text(letter),
-                                  ),
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Text(
+                                      letter,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    if (isStruck)
+                                      CustomPaint(
+                                        size: Size(30, 30),
+                                        painter: CrossStrikePainter(),
+                                      ),
+                                  ],
                                 ),
                               );
-                            }).toList(),
+                            }),
                           ),
                           SizedBox(height: 20),
                           Expanded(
@@ -437,4 +461,19 @@ class _GameState extends State<Game> {
       ],
     );
   }
+}
+
+class CrossStrikePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.white
+      ..strokeWidth = 2;
+
+    canvas.drawLine(Offset(0, 0), Offset(size.width, size.height), paint);
+    canvas.drawLine(Offset(0, size.height), Offset(size.width, 0), paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
