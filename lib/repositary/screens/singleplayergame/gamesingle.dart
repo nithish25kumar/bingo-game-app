@@ -1,5 +1,4 @@
 import 'package:bingo/repositary/screens/widgets/uihelper.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -25,11 +24,16 @@ class _GamesingleState extends State<Gamesingle> {
   int completedLines = 0;
   List<bool> bingoStrike = [false, false, false, false, false];
 
-  List<int> numbers = List.generate(25, (index) => index + 1);
+  late List<int> numbers;
   List<bool> selectedCells = List.generate(25, (index) => false);
 
   bool showResult = false;
   bool showexit = false;
+  @override
+  void initState() {
+    super.initState();
+    numbers = widget.customBoard;
+  }
 
   void checkBingo() {
     int lineCount = 0;
@@ -225,11 +229,7 @@ class _GamesingleState extends State<Gamesingle> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    showResult = true;
-                                  });
-                                },
+                                onPressed: () {},
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.blue,
                                   foregroundColor: Colors.white,
