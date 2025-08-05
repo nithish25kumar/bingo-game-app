@@ -32,6 +32,30 @@ class _RoomState extends State<Room> {
   void initState() {
     super.initState();
     checkIfHost();
+    listenForGameStart();
+  }
+
+  void listenForGameStart() {
+    FirebaseFirestore.instance
+        .collection('rooms')
+        .doc(widget.roomCode)
+        .snapshots()
+        .listen((doc) {
+      final data = doc.data();
+      if (data != null && data['gameStarted'] == true) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Game(
+              roomCode: widget.roomCode,
+              selectedColor: widget.selectedColor,
+              selectedTimer: widget.selectedTimer,
+              customBoard: widget.customBoard,
+            ),
+          ),
+        );
+      }
+    });
   }
 
   Future<void> checkIfHost() async {
@@ -204,18 +228,16 @@ class _RoomState extends State<Room> {
                   if (isHost)
                     ElevatedButton(
                       onPressed: players.length >= 2
-                          ? () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Game(
-                                    roomCode: widget.roomCode,
-                                    selectedColor: widget.selectedColor,
-                                    selectedTimer: widget.selectedTimer,
-                                    customBoard: widget.customBoard,
-                                  ),
-                                ),
-                              );
+                          ? () async {
+                              final firstPlayerUid = players.first.id;
+                              await FirebaseFirestore.instance
+                                  .collection('rooms')
+                                  .doc(widget.roomCode)
+                                  .update({
+                                'gameStarted': true,
+                                'currentTurnUid': firstPlayerUid,
+                                'turnStartedAt': FieldValue.serverTimestamp(),
+                              });
                             }
                           : null,
                       child: Text('Start Game'),
