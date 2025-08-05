@@ -1,6 +1,7 @@
 import 'package:bingo/repositary/screens/gameSettings/gameSettings.dart';
 import 'package:flutter/material.dart';
 import '../playersplayarea/game.dart';
+import '../room/room.dart';
 
 class Customizeboard extends StatefulWidget {
   final Color selectedColor;
@@ -137,14 +138,14 @@ class _CustomizeboardState extends State<Customizeboard> {
                           width: 130,
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.pushReplacement(
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => Game(
+                                  builder: (context) => Room(
+                                    roomCode: widget.roomCode,
                                     selectedColor: widget.selectedColor,
                                     selectedTimer: widget.selectedTimer,
                                     customBoard: numbers,
-                                    roomCode: widget.roomCode,
                                   ),
                                 ),
                               );

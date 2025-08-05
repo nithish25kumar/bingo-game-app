@@ -1,5 +1,7 @@
-import 'dart:math';
+// Dart code: Full implementation for creating and joining a Firestore room with UI game settings
+// Ensure you have `cloud_firestore:` and `firebase_auth:` in your pubspec.yaml
 
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ class _GamesettingsState extends State<Gamesettings> {
   Color? selectedColor;
   int selectedTimer = 10;
   late String roomCode;
+
   @override
   void initState() {
     super.initState();
@@ -40,6 +43,12 @@ class _GamesettingsState extends State<Gamesettings> {
     final userData = userDoc.data();
     final name = userData?['name'] ?? 'Unknown';
     final photoUrl = userData?['photoUrl'] ?? '';
+
+    await FirebaseFirestore.instance.collection('rooms').doc(roomCode).set({
+      'selectedColor': selectedColor?.value.toRadixString(16) ?? 'FF2196F3',
+      'selectedTimer': selectedTimer,
+      'createdAt': FieldValue.serverTimestamp(),
+    });
 
     await FirebaseFirestore.instance
         .collection('rooms')

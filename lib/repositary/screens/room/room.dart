@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:bingo/repositary/screens/gameSettings/customizeBoard.dart';
 import 'package:bingo/repositary/screens/multiplayer/multiplayer.dart';
 import 'package:bingo/repositary/screens/playersplayarea/game.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -28,18 +25,29 @@ class Room extends StatefulWidget {
 }
 
 class _RoomState extends State<Room> {
-  late String roomCode;
+  late bool isHost = false;
+  final currentUser = FirebaseAuth.instance.currentUser;
+
   @override
   void initState() {
     super.initState();
-    roomCode = _generateRoomCode();
+    checkIfHost();
   }
 
-  String _generateRoomCode() {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    Random rand = Random();
-    return String.fromCharCodes(Iterable.generate(
-        6, (_) => chars.codeUnitAt(rand.nextInt(chars.length))));
+  Future<void> checkIfHost() async {
+    if (currentUser == null) return;
+    final playerDoc = await FirebaseFirestore.instance
+        .collection('rooms')
+        .doc(widget.roomCode)
+        .collection('players')
+        .doc(currentUser!.uid)
+        .get();
+
+    if (playerDoc.exists) {
+      setState(() {
+        isHost = playerDoc.data()?['isHost'] ?? false;
+      });
+    }
   }
 
   @override
@@ -131,13 +139,11 @@ class _RoomState extends State<Room> {
                     ],
                   ),
                   SizedBox(height: 40),
-
-                  // 🔁 Dynamic Player List
                   ...players.map((playerDoc) {
                     final player = playerDoc.data() as Map<String, dynamic>;
                     final name = player['name'] ?? 'Player';
                     final photoUrl = player['photoUrl'] ?? '';
-                    final isHost = player['isHost'] ?? false;
+                    final isHostPlayer = player['isHost'] ?? false;
 
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 20),
@@ -145,7 +151,9 @@ class _RoomState extends State<Room> {
                         children: [
                           CircleAvatar(
                             radius: 35,
-                            backgroundImage: photoUrl.isNotEmpty
+                            backgroundColor: Colors.grey.shade200,
+                            backgroundImage: photoUrl != null &&
+                                    photoUrl.isNotEmpty
                                 ? NetworkImage(photoUrl)
                                 : AssetImage('assets/images/default_user.png')
                                     as ImageProvider,
@@ -153,7 +161,7 @@ class _RoomState extends State<Room> {
                           SizedBox(width: 10),
                           Container(
                             height: 80,
-                            width: 250,
+                            width: 200,
                             decoration: BoxDecoration(
                               color: Color(0xff60669b),
                               borderRadius: BorderRadius.circular(25),
@@ -171,7 +179,7 @@ class _RoomState extends State<Room> {
                                   ),
                                   Spacer(),
                                   Text(
-                                    isHost ? "Host" : "Player",
+                                    isHostPlayer ? "Host" : "Player",
                                     style: TextStyle(
                                         color: Colors.white70, fontSize: 14),
                                   ),
@@ -182,29 +190,41 @@ class _RoomState extends State<Room> {
                         ],
                       ),
                     );
-                  }),
-
+                  }).toList(),
                   SizedBox(height: 60),
                   Uihelper.CustomButton1(
                     buttonnname: "Invite Friends",
                     callback: () {
-                      // Share roomCode
+                      Clipboard.setData(ClipboardData(text: widget.roomCode));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Room ID copied to share")));
                     },
                   ),
                   SizedBox(height: 20),
-                  Uihelper.CustomButton1(
-                    buttonnname: "Get.Set.Play",
-                    callback: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => Customizeboard(
-                                selectedColor: widget.selectedColor,
-                                selectedTimer: widget.selectedTimer,
-                                roomCode: roomCode)),
-                      );
-                    },
-                  ),
+                  if (isHost)
+                    ElevatedButton(
+                      onPressed: players.length >= 2
+                          ? () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Game(
+                                    roomCode: widget.roomCode,
+                                    selectedColor: widget.selectedColor,
+                                    selectedTimer: widget.selectedTimer,
+                                    customBoard: widget.customBoard,
+                                  ),
+                                ),
+                              );
+                            }
+                          : null,
+                      child: Text('Start Game'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            players.length >= 2 ? Colors.green : Colors.grey,
+                        foregroundColor: Colors.white,
+                      ),
+                    ),
                 ],
               ),
             ),
