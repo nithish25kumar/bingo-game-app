@@ -12,10 +12,12 @@ class Siginpage extends StatefulWidget {
   State<Siginpage> createState() => _SiginpageState();
 }
 
-class _SiginpageState extends State<Siginpage> {
+class _SiginpageState extends State<Siginpage>
+    with SingleTickerProviderStateMixin {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  @override
   Future<void> signInWithGoogle() async {
     try {
       final currentUser = FirebaseAuth.instance.currentUser;
@@ -77,42 +79,64 @@ class _SiginpageState extends State<Siginpage> {
       backgroundColor: Color(0xFF171717),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.only(top: 200),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Uihelper.bingo(imgurl: "bingo.png"),
-              SizedBox(
-                height: 20,
+              const SizedBox(height: 30),
+              const Text(
+                "Welcome to Bingo!",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.2,
+                ),
               ),
+              const SizedBox(height: 10),
+              const Text(
+                "Sign in to continue playing 🎮",
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 40),
               SizedBox(
-                  height: 60,
-                  width: 200,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      signInWithGoogle();
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(0))),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          "assets/images/google.webp",
-                          height: 20,
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          "Google Sigin ",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, letterSpacing: 2),
-                        )
-                      ],
+                height: 60,
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: signInWithGoogle,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                    elevation: 6,
+                    shadowColor: Colors.black45,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                  ))
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/images/google.webp",
+                        height: 24,
+                      ),
+                      const SizedBox(width: 12),
+                      const Text(
+                        "Continue with Google",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
