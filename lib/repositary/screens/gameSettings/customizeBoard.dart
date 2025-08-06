@@ -1,6 +1,5 @@
 import 'package:bingo/repositary/screens/gameSettings/gameSettings.dart';
 import 'package:flutter/material.dart';
-import '../playersplayarea/game.dart';
 import '../room/room.dart';
 
 class Customizeboard extends StatefulWidget {

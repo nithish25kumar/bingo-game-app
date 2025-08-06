@@ -176,11 +176,11 @@ class _RoomState extends State<Room> {
                           CircleAvatar(
                             radius: 35,
                             backgroundColor: Colors.grey.shade200,
-                            backgroundImage: photoUrl != null &&
-                                    photoUrl.isNotEmpty
-                                ? NetworkImage(photoUrl)
-                                : AssetImage('assets/images/default_user.png')
-                                    as ImageProvider,
+                            backgroundImage:
+                                photoUrl != null && photoUrl.isNotEmpty
+                                    ? NetworkImage(photoUrl)
+                                    : AssetImage("assets/images/icon.webp")
+                                        as ImageProvider,
                           ),
                           SizedBox(width: 10),
                           Container(
@@ -216,35 +216,37 @@ class _RoomState extends State<Room> {
                     );
                   }).toList(),
                   SizedBox(height: 60),
-                  Uihelper.CustomButton1(
-                    buttonnname: "Invite Friends",
-                    callback: () {
-                      Clipboard.setData(ClipboardData(text: widget.roomCode));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Room ID copied to share")));
-                    },
-                  ),
                   SizedBox(height: 20),
                   if (isHost)
-                    ElevatedButton(
-                      onPressed: players.length >= 2
-                          ? () async {
-                              final firstPlayerUid = players.first.id;
-                              await FirebaseFirestore.instance
-                                  .collection('rooms')
-                                  .doc(widget.roomCode)
-                                  .update({
-                                'gameStarted': true,
-                                'currentTurnUid': firstPlayerUid,
-                                'turnStartedAt': FieldValue.serverTimestamp(),
-                              });
-                            }
-                          : null,
-                      child: Text('Start Game'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            players.length >= 2 ? Colors.green : Colors.grey,
-                        foregroundColor: Colors.white,
+                    SizedBox(
+                      height: 50,
+                      width: 330,
+                      child: ElevatedButton(
+                        onPressed: players.length >= 2
+                            ? () async {
+                                final firstPlayerUid = players.first.id;
+                                await FirebaseFirestore.instance
+                                    .collection('rooms')
+                                    .doc(widget.roomCode)
+                                    .update({
+                                  'gameStarted': true,
+                                  'currentTurnUid': firstPlayerUid,
+                                  'turnStartedAt': FieldValue.serverTimestamp(),
+                                });
+                              }
+                            : null,
+                        child: Text(
+                          'Start Game',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              players.length >= 2 ? Colors.green : Colors.grey,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(0)),
+                          foregroundColor: Colors.white,
+                        ),
                       ),
                     ),
                 ],

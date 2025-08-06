@@ -1,6 +1,3 @@
-// Dart code: Full implementation for creating and joining a Firestore room with UI game settings
-// Ensure you have `cloud_firestore:` and `firebase_auth:` in your pubspec.yaml
-
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,6 +12,7 @@ class Gamesettings extends StatefulWidget {
 }
 
 class _GamesettingsState extends State<Gamesettings> {
+  //initialized variables like selectedcolor,selectedtimer,roomcode
   Color? selectedColor;
   int selectedTimer = 10;
   late String roomCode;
@@ -26,7 +24,7 @@ class _GamesettingsState extends State<Gamesettings> {
   }
 
   String _generateRoomCode() {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const chars = 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789';
     Random rand = Random();
     return String.fromCharCodes(Iterable.generate(
         6, (_) => chars.codeUnitAt(rand.nextInt(chars.length))));
@@ -151,7 +149,7 @@ class _GamesettingsState extends State<Gamesettings> {
             _colorOption(Colors.deepPurpleAccent),
             _colorOption(Colors.pink),
             _colorOption(Colors.redAccent),
-            _colorOption(Colors.green),
+            _colorOption(Colors.purpleAccent),
             _colorOption(Colors.orangeAccent),
           ]),
           SizedBox(height: 40),
