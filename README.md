@@ -1,28 +1,24 @@
- Bingo Blitz – A Flutter Multiplayer Bingo Game
+🎯 **BingoBlitz – A Flutter Bingo Game**
 
-**Bingo Blitz** is a fast-paced multiplayer bingo game built with **Flutter**, offering an exciting and interactive way to enjoy bingo with friends or players worldwide.
-Powered by **Firebase**, the app delivers real-time gameplay, custom boards, and fun competitive matches.
+BingoBlitz is a modern and fun Bingo game developed using Flutter, designed to deliver a colorful, exciting, and smooth gaming experience. Built with Firebase integration, BingoBlitz includes features like multiple Bingo rooms, real-time multiplayer gameplay, leaderboards, rewards, and more.
 
-📱 **Download APK**
-🐦 **Twitter**
-🔗 **LinkedIn**
- 
- 🧑‍💻 Developed By
+📱 [**Download APK**](https://drive.google.com/file/d/1mzUEhcqENRMaLyP8UW__apnpm4_FtH4Q/view?usp=sharing)
+🐦 [**Twitter**](https://x.com/Nithish37951963)
+🔗 [**LinkedIn**](https://www.linkedin.com/in/nithish-kumar-9b29b3287/)
+
+🧑‍💻 **Developed By**
 
 **Nithish Kumar K**
 3rd Year M.Tech Integrated Software Engineering
 VIT University, Vellore
-📧 **[nithish25may2005@gmail.com]**
+📧 **[nithish25may2005@gmail.com](mailto:nithish25may2005@gmail.com)**
 
+🚀 **Features**
 
- 🚀 Features
-
-🎮 **Multiplayer Mode** – Create or join bingo rooms in real time
-👤 **Google Sign-In** – Easy authentication
-🎨 **Custom Board Creation** – Choose your own numbers or use a random shuffle
-🖌️ **Color Themes** – Personalize your game board colors
-🏆 **Win Detection** – Automatic check for completed rows, columns, or diagonals
-🧠 **State Management** – Implemented using **Cubit** & **GetIt**
-☁️ **Firebase Integration** – Firestore for game state & Authentication for sign-in
-
+🔐 Google Sign-In
+🎲 Multiple Bingo Rooms
+🕹️ Real-Time Multiplayer Gameplay
+📢 Instant Win Notifications
+🎨 Colorful & Modern UI
+🧠 State Management using Cubit and GetIt
 
