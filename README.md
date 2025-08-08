@@ -1,6 +1,6 @@
 🎯 **BingoBlitz – A Flutter Bingo Game**
 
-BingoBlitz is a modern and fun Bingo game developed using Flutter, designed to deliver a colorful, exciting, and smooth gaming experience. Built with Firebase integration, BingoBlitz includes features like multiple Bingo rooms, real-time multiplayer gameplay, leaderboards, rewards, and more.
+BingoBlitz is a modern and fun Bingo game developed using Flutter, designed to deliver a colorful, exciting, and smooth gaming experience. Built with Firebase integration, BingoBlitz includes features like multiple Bingo rooms, real-time multiplayer gameplay.
 
 📱 [**Download APK**](https://drive.google.com/file/d/1mzUEhcqENRMaLyP8UW__apnpm4_FtH4Q/view?usp=sharing)
 🐦 [**Twitter**](https://x.com/Nithish37951963)
